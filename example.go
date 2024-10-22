@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build ingore
-// +build ingore
+//go:build ignore
+// +build ignore
 
 package main
 
@@ -40,16 +40,14 @@ func main() {
 }
 
 func run() error {
-	if *serviceInstall {
+	switch {
+	case *serviceInstall:
 		return installService()
-	}
-	if *serviceUninstall {
+	case *serviceUninstall:
 		return winsvc.RemoveService(*serviceName)
-	}
-	if *serviceStart {
+	case *serviceStart:
 		return winsvc.StartService(*serviceName)
-	}
-	if *serviceStop {
+	case *serviceStop:
 		return winsvc.StopService(*serviceName)
 	}
 
